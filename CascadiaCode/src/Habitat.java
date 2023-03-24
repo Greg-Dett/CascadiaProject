@@ -14,19 +14,19 @@ public class Habitat {
                 switch (habitat2){
                     case mountain -> {
                         HabitatName="forest/mountain";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainForest.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainForest0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case river -> {
                         HabitatName="forest/river";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/ForestRiver.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/ForestRiver0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case wetland -> {
                         HabitatName="forest/wetland";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case prairie -> {
                         HabitatName="forest/prairie";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandForest.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandForest0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case none -> {
                         HabitatName="forest";
@@ -39,19 +39,19 @@ public class Habitat {
                 switch (habitat2) {
                         case river -> {
                             HabitatName="mountain/river";
-                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainRiver.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainRiver0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                         }
                         case wetland -> {
                             HabitatName="mountain/wetland";
-                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandMountain.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandMountain0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                         }
                         case prairie -> {
                             HabitatName="mountain/prairie";
-                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandMountain.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandMountain0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                         }
                         case forest -> {
                             HabitatName="forest/mountain";
-                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainForest.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainForest0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                         }
                        case none -> {
                         HabitatName="mountain";
@@ -65,19 +65,19 @@ public class Habitat {
                 switch (habitat2) {
                     case wetland -> {
                         HabitatName="river/wetland";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case prairie -> {
                         HabitatName="river/prairie";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandRiver.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandRiver0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case forest -> {
                         HabitatName="forest/river";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/ForestRiver.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/ForestRiver0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case mountain -> {
                         HabitatName="mountain/river";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainRiver.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainRiver0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case none -> {
                         HabitatName="river";
@@ -92,19 +92,19 @@ public class Habitat {
             switch (habitat2) {
                 case river -> {
                     HabitatName="river/wetland";
-                    habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                    habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                 }
                 case prairie -> {
                     HabitatName="river/prairie";
-                    habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandSand.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                    habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandSand0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                 }
                 case mountain -> {
                     HabitatName="mountain/wetland";
-                    habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandMountain.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                    habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandMountain0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                 }
                 case forest -> {
                     HabitatName="forest/wetland";
-                    habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                    habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                 }
                 case none -> {
                     HabitatName="wetland";
@@ -116,19 +116,19 @@ public class Habitat {
                 switch (habitat2) {
                     case wetland -> {
                         HabitatName="wetland/prairie";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandSand.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandSand0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case river -> {
                         HabitatName="river/prairie";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandRiver.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandRiver0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case mountain -> {
                         HabitatName="mountain/prairie";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandMountain.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandMountain0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case forest -> {
                         HabitatName="forest/prairie";
-                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandForest.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandForest0.png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
                     }
                     case none -> {
                         HabitatName="prairie";
@@ -147,12 +147,122 @@ public class Habitat {
 
             numPossibleAnimals = rand.nextInt(3-1+1)+1;
             while (possibleAnimals.size()<numPossibleAnimals) {
-                int pick = new Random().nextInt(4);
+                int pick = new Random().nextInt(5);
                 Animal newpick = new Animal(Casscadia.Animalselect.values()[pick]);
                 if (isPresent(newpick)==false) {
                     possibleAnimals.add(newpick);
                 }
             }
+        }
+        public void rotateHabitat(int rotation) throws IOException {
+            switch (this.habitat1){
+                case forest -> {
+                    switch (this.habitat2){
+                        case mountain -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainForest"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case river -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/ForestRiver"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case wetland -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case prairie -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandForest"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case none -> {
+                        }
+
+                    }
+                }
+                case mountain -> {
+                    switch (this.habitat2) {
+                        case river -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainRiver"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case wetland -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandMountain"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case prairie -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandMountain"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case forest -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainForest"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case none -> {
+                        }
+
+                    }
+                }
+
+                case river -> {
+                    switch (this.habitat2) {
+                        case wetland -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case prairie -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandRiver"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case forest -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/ForestRiver"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case mountain -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/MountainRiver"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case none -> {
+                        }
+
+
+
+                    }
+                }
+                case wetland -> {
+                    switch (this.habitat2) {
+                        case river -> {
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case prairie -> {
+
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandSand"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case mountain -> {
+
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandMountain"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case forest -> {
+
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandRiver"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case none -> {
+                        }
+
+                    }}
+                case prairie -> {
+                    switch (this.habitat2) {
+                        case wetland -> {
+
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/WetlandSand"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case river -> {
+
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandRiver"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case mountain -> {
+
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandMountain"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case forest -> {
+
+                            habitatImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/SandForest"+rotation+".png")).getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+                        }
+                        case none -> {
+                        }
+
+                    }
+                }
+            }
+
+
         }
 
 

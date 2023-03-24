@@ -46,7 +46,9 @@ public class Casscadia implements ActionListener {
     Animal currentAnimal = null;
     boolean useWildlifeToken=false;
     boolean canReshuffle = false;
+
     int turnCount = 0;
+    int currentRotation=0;
     int PlayerTurn = 0;
     int turns = 1;
     int NumPLayers;
@@ -62,6 +64,8 @@ public class Casscadia implements ActionListener {
         frame.setUndecorated(true);
         frame.setLocationRelativeTo(null);
         JPanel pn = new JPanel() {
+
+
             @Override
             public void paint(Graphics g) {
                 //draw square grid/board
@@ -75,6 +79,9 @@ public class Casscadia implements ActionListener {
                         }
 
                     }
+                }
+                if (hello.turns>40){
+                    return;
                 }
 
 
@@ -130,6 +137,25 @@ public class Casscadia implements ActionListener {
                     wildlife_token.setBounds(0, 562, 100, 50);
                     frame.add(wildlife_token);
 
+                JButton rotate = new JButton("Rotate");
+                rotate.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (hello.currentHabitat!=null) {
+                            hello.plusRotation();
+                            try {
+                                hello.currentHabitat.rotateHabitat(hello.currentRotation);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            frame.repaint();
+                        }
+                    }
+                });
+                rotate.setBounds(410, 562, 100, 50);
+                frame.add(rotate);
+
                 JTextField textbox = new JTextField();
                 textbox.setSize(new Dimension(512, 38));
                 textbox.setBounds(0, 612, 512, 38);
@@ -183,7 +209,7 @@ public class Casscadia implements ActionListener {
               if (hello.currentHabitat != null && x < 8 && y < 8 && hello.Players.get(hello.PlayerTurn).Board[x][y] == null && hello.Players.get(hello.PlayerTurn).canPlace(x,y)) {
                     BoardTile newtile = null;
                     try {
-                        newtile = new BoardTile(hello.currentHabitat, x, y);
+                        newtile = new BoardTile(hello.currentHabitat, x, y,hello.currentRotation);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -192,6 +218,7 @@ public class Casscadia implements ActionListener {
                     hello.currentAnimal = hello.AnimalCards.get(animalIndex);
                     frame.repaint();
                     hello.currentHabitat = null;
+                    hello.currentRotation=0;
                     hello.CurrentText = ("Please place " + hello.currentAnimal.AnimalName+" or use a wildlife token");
                 } else if (hello.currentAnimal != null && x < 8 && y < 8 && hello.Players.get(hello.PlayerTurn).Board[x][y] != null && hello.Players.get(hello.PlayerTurn).Board[x][y].isAnimal == false) {
                     if (hello.Players.get(hello.PlayerTurn).Board[x][y].habitat.isPossible((hello.currentAnimal)) == true) {
@@ -221,9 +248,7 @@ public class Casscadia implements ActionListener {
                         hello.currentHabitat = hello.HabitatCards.get(0);
                         animalIndex = 0;
                         hello.CurrentText = (hello.currentHabitat.getHabitatName() + " is selected");
-                        //if current habitat is not keystone
-                        //button
-                        //button rotates image 90 degrees
+
                         frame.repaint();
                     } else if (e.getX() > 218 && e.getX() < 280 && e.getY() > 518 && e.getY() < 580) {
                         hello.currentHabitat = hello.HabitatCards.get(1);
@@ -290,6 +315,7 @@ public class Casscadia implements ActionListener {
             }
         });
         frame.setVisible(true);
+
     }
 
 
@@ -312,12 +338,12 @@ public class Casscadia implements ActionListener {
 
         CreateTiles();
 
-        NumPlayersScanner.nextLine();
+//        NumPlayersScanner.nextLine();
         for (int i = 0; i < NumPLayers; i++) {
             Scanner PlayerNameScanner = new Scanner(System.in);  // Create a Scanner object
             System.out.println("Enter the name for player " + (i + 1) + ":");//User inputs Name
-            String userName = PlayerNameScanner.nextLine();
-//            String userName = ("greg" + i);
+//            String userName = PlayerNameScanner.nextLine();
+            String userName = ("greg" + i);
             Players.add(new Player(userName));
             System.out.println("Player " + (i + 1) + "'s name is: " + userName + "\n");  // Output user input
         }
@@ -411,4 +437,12 @@ public class Casscadia implements ActionListener {
         Collections.shuffle(this.AnimalCards);
         this.CurrentText="Select a Habitat and Animal or place a habitat and use a wildlife token to choose an animal";
         turns++;
+    }
+    public void plusRotation() {
+        if (this.currentRotation < 3) {
+            this.currentRotation++;
+        } else {
+            currentRotation = 0;
+        }
+
     }}

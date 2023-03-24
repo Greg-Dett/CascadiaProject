@@ -11,8 +11,9 @@ public class BoardTile {
     boolean isAnimal=false;
     Animal animal;
     int numPossibleAnimals;
-    public BoardTile(Habitat newHabitat,int x,int y) throws IOException {
+    public BoardTile(Habitat newHabitat,int x,int y,int rotation) throws IOException {
         this.habitat=newHabitat;
+        habitat.rotateHabitat(rotation);
         if (y%2!=0) {
             this.xPosition = x * 64+32;
         }
