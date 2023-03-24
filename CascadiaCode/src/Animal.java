@@ -12,14 +12,14 @@ public class Animal {
         case Bear -> AnimalName="Bear";
         case Salmon -> AnimalName="Salmon";
     }
-    switch (type){
+    switch (type){//sets animal picture for when its placed
             case Hawk ->   animalImage= ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/hawk.png")).getScaledInstance(32,32,Image.SCALE_SMOOTH);
             case Elk -> animalImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/elk.png")).getScaledInstance(32,32,Image.SCALE_SMOOTH);
             case Fox -> animalImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/fox.png")).getScaledInstance(32,32,Image.SCALE_SMOOTH);
             case Bear -> animalImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/Bear.png")).getScaledInstance(32,32,Image.SCALE_SMOOTH);
             case Salmon -> animalImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/fish.png")).getScaledInstance(32,32,Image.SCALE_SMOOTH);
         }
-        switch (type){
+        switch (type){//sets animal picture for when it is a possible placed animal
             case Hawk ->   possibleImage= ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/hawk.png")).getScaledInstance(20,20,Image.SCALE_SMOOTH);
             case Elk -> possibleImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/elk.png")).getScaledInstance(20,20,Image.SCALE_SMOOTH);
             case Fox -> possibleImage=ImageIO.read(Casscadia.class.getResource("cascadiaPNGs/fox.png")).getScaledInstance(20,20,Image.SCALE_SMOOTH);

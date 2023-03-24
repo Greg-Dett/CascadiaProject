@@ -9,7 +9,7 @@ public class Habitat {
     public Habitat(Casscadia.Habitatselect ex1, Casscadia.Habitatselect ex2) throws IOException {
     this.habitat1=ex1;
     this.habitat2=ex2;
-        switch (habitat1){
+        switch (habitat1){//sets name and picture for habitat based on constructor variables
             case forest -> {
                 switch (habitat2){
                     case mountain -> {
@@ -142,9 +142,8 @@ public class Habitat {
 
 
 
-
+            //chooses animals which can be placed on the habitat
             Random rand = new Random();
-
             numPossibleAnimals = rand.nextInt(3-1+1)+1;
             while (possibleAnimals.size()<numPossibleAnimals) {
                 int pick = new Random().nextInt(5);
@@ -155,7 +154,7 @@ public class Habitat {
             }
         }
         public void rotateHabitat(int rotation) throws IOException {
-            switch (this.habitat1){
+            switch (this.habitat1){//code that changes the image of the habitat when it is rotated
                 case forest -> {
                     switch (this.habitat2){
                         case mountain -> {
@@ -271,8 +270,8 @@ public class Habitat {
     }
     String HabitatName;
     Image habitatImage;
-    ArrayList<Animal> possibleAnimals=new ArrayList<Animal>();
-    int numPossibleAnimals;
+    ArrayList<Animal> possibleAnimals=new ArrayList<Animal>(); //the animals that can be placed on the habitat
+    int numPossibleAnimals; //number of animals that can be placed on teh habitat
 
     Casscadia.Habitatselect habitat1;
     Casscadia.Habitatselect habitat2;
@@ -284,7 +283,7 @@ public class Habitat {
         }
         return false;
     }
-    public boolean isPossible(Animal animal){
+    public boolean isPossible(Animal animal){//checks whether an animal can be placed on the habitat
         for (int i=0;i<numPossibleAnimals;i++){
             if (animal.AnimalName==possibleAnimals.get(i).AnimalName){
                 return true;
