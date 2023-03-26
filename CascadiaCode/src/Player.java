@@ -645,6 +645,40 @@ public class Player {
         return totalPoints;
     }
 
+    public int HawkpointsA()
+    {
+        int numHawks=0;
+        for (int i=0;i<8;i++)
+        {
+            for (int l=0;l<8;l++)
+            {
+                if (Board[l][i]==null||Board[l][i].isAnimal==false)
+                {
+                }
+                else if (Board[l][i].animal.AnimalName=="Hawk")
+                {
+                    if (checkPair(Board[l][i]).size()==0){
+                        numHawks++;}
+                }
+            }
+        }
+        switch (numHawks)
+        {
+            case 1->{return 2;}
+            case 2->{return 5;}
+            case 3->{return 8;}
+            case 4->{return 11;}
+            case 5->{return 14;}
+            case 6->{return 18;}
+            case 7->{return 22;}
+        }
+        if (numHawks>8)
+        {
+            return 26;
+        }
+        return 0;
+    }
+
     public ArrayList<BoardTile> getSurrounding(BoardTile tileToCheck) {
         int X=tileToCheck.X;
         int Y=tileToCheck.Y;
