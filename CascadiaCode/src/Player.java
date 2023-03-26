@@ -600,4 +600,104 @@ public class Player {
         return totalpoints;
     }
 
+    public int FoxPointsA(){
+        int animals[]={0,0,0,0,0};
+        int totalPoints=0;
+
+        for (int i=0;i<8;i++) {
+            for (int l=0;l<8;l++){
+                if (Board[l][i]==null){}
+                else if (Board[l][i].isAnimal==false){}
+                else if(Board[l][i].animal.AnimalName=="Fox") {
+                    int numdifferent=0;
+                    ArrayList<BoardTile> foxcheck=getSurrounding(Board[l][i]);
+                    if (foxcheck.size()==0){}
+                    else {
+                        for (int z = 0; z < foxcheck.size(); z++) {
+                            switch (foxcheck.get(z).animal.AnimalName) {
+                                case "Hawk" -> animals[0]++;
+                                case "Elk" -> animals[1]++;
+                                case "Fox" -> animals[2]++;
+                                case "Bear" -> animals[3]++;
+                                case "Salmon" -> animals[4]++;
+                            }
+                        }
+                        for (int k = 0; k < 5; k++) {
+                            if (animals[k] != 0) {
+                                numdifferent++;
+                            }
+
+                        }
+                        switch (numdifferent) {
+                            case 1 -> totalPoints += 1;
+                            case 2 -> totalPoints += 2;
+                            case 3 -> totalPoints += 3;
+                            case 4 -> totalPoints += 4;
+                            case 5 -> totalPoints += 5;
+                        }
+                        for (int x = 0; x < 5; x++) {
+                            animals[x] = 0;
+                        }
+                    }
+                }
+            }
+        }
+        return totalPoints;
+    }
+
+    public ArrayList<BoardTile> getSurrounding(BoardTile tileToCheck) {
+        int X=tileToCheck.X;
+        int Y=tileToCheck.Y;
+        ArrayList<BoardTile> occuredTiles=new ArrayList<BoardTile>();
+        int originalX = X;
+        int originalY = Y;
+        if (Board[X][Y]==null||Board[X][Y].animal==null){
+            return null;
+        }
+        if (Y % 2 == 0) {
+            Y = Y - 1;
+            X = X - 1;
+            for (int i = 0; i < 3; i++) {
+                Y += i;
+                for (int l = 0; l < 2; l++) {
+                    X += l;
+                    if (X < 0 || X > 8 || Y < 0 || Y > 8) {}
+                    else if (Board[X][Y]==null||Board[X][Y].animal==null){}
+                    else if (X == originalX && Y == originalY) {
+                        if (Board[X+1][Y]==null||Board[X+1][Y].isAnimal==false) {}
+                        else {occuredTiles.add(findTile(X + 1, Y));}
+
+
+                    } else  {
+                        occuredTiles.add(findTile(X,Y));
+                    }
+                    X=originalX-1;
+                }
+                Y=originalY-1;
+            }
+
+        } else {
+            Y = Y - 1;
+            for (int i = 0; i < 3; i++) {
+                Y += i;
+                for (int l = 0; l < 2; l++) {
+                    X += l;
+                    if (X < 0 || X > 8 || Y < 0 || Y > 8) {
+                    }
+                    else if (Board[X][Y]==null||Board[X][Y].animal==null) {}
+                    else if (X == originalX && Y == originalY) {
+                        if (Board[X-1][Y]==null||Board[X-1][Y].isAnimal==false) {}
+                        else{ occuredTiles.add(findTile(X - 1, Y));}
+
+                    } else{
+                        occuredTiles.add(findTile(X,Y));
+                    }
+                    X=originalX;
+                }
+                Y=originalY-1;
+            }
+        }
+        return occuredTiles;
+    }
+
 }
