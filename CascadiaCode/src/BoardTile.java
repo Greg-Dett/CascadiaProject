@@ -32,6 +32,12 @@ public class BoardTile {
         bottomright
     }
 
+    public void removeAnimal()
+    {
+        animal = null;
+        isAnimal = false;
+    }
+
 
     public void addAnimal(Animal newAnimal){//places an animal on the tile
         this.animal=newAnimal;

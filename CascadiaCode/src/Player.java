@@ -183,6 +183,374 @@ public class Player {
         return null;
     }
 
+    public int linechecker(int x,int y)
+    {
+        Animal animal=Board[x][y].animal;
+        ArrayList<BoardTile> longestline=new ArrayList<>();
+        ArrayList<BoardTile> tempLine=new ArrayList<>();
+
+        int numRight=0,numLeft=0,numUpLeft=0,numUpRight=0,numDownLeft=0,numDownRight=0;
+
+        if (Board[x+1][y]==null||Board[x+1][y].isAnimal==false)
+        {
+        }
+        else if(Board[x+1][y].animal.AnimalName==animal.AnimalName)
+        {
+            for (int i = 0; i < 8 - x; i++)
+            {
+                if (Board[x + i][y]==null||Board[x + i][y].isAnimal==false||Board[x + i][y].animal.AnimalName != animal.AnimalName)
+                {
+                    break;
+                }
+                else {numRight++;
+                    longestline.add(Board[x+i][y]);}
+            }
+        }
+        if (Board[x-1][y]==null||Board[x-1][y].isAnimal==false)
+        {
+        }
+        else if (Board[x-1][y].animal.AnimalName==animal.AnimalName)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                if (Board[x - i][y]==null||Board[x - i][y].isAnimal==false||Board[x - i][y].animal.AnimalName != animal.AnimalName)
+                {
+                    break;
+                }
+                else {numLeft++;
+                    tempLine.add(Board[x-1][i]);}
+            }
+            if (tempLine.size()>longestline.size())
+            {
+                longestline.clear();
+                longestline.addAll(tempLine);
+                tempLine.clear();
+            }
+        }
+        if (y%2==0)
+        {
+            if (Board[x][y-1]==null||Board[x][y-1].isAnimal==false)
+            {
+            }
+            else if (Board[x][y-1].isAnimal==false)
+            {
+            }
+            else if(Board[x][y-1].animal.AnimalName==animal.AnimalName)
+            {
+                int l = x, i = y;
+                while (l < 8 && i >= 0) {
+                    if (Board[l][i]==null||Board[l][i].isAnimal==false||Board[l][i].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i].animal.AnimalName == animal.AnimalName)
+                    {
+                        numUpRight++;
+                        tempLine.add(Board[l][i]);
+                    }
+                    if (Board[l][i-1]==null||Board[l][i-1].isAnimal==false||Board[l][i-1].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i - 1].animal.AnimalName == animal.AnimalName)
+                    {
+                        numUpRight++;
+                        tempLine.add(Board[l][i-1]);
+                    }
+                    i -= 2;
+                    l++;
+                }
+                if (tempLine.size()>longestline.size())
+                {
+                    longestline.clear();
+                    longestline.addAll(tempLine);
+                    tempLine.clear();
+                }
+            }
+            if (Board[x-1][y-1]==null)
+            {
+            }
+            else if (Board[x-1][y-1].isAnimal==false)
+            {
+            }
+            else if(Board[x-1][y-1].animal.AnimalName==animal.AnimalName)
+            {
+                numUpLeft++;
+                tempLine.add(Board[x][y]);
+                int l = x-1, i = y-1;
+                while (l > 0 && i >= 0)
+                {
+                    if (Board[l][i]==null||Board[l][i].isAnimal==false||Board[l][i].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i].animal.AnimalName == animal.AnimalName)
+                    {
+                        numUpLeft++;
+                        tempLine.add(Board[l][i]);
+                    }
+                    if (Board[l][i-1]==null||Board[l][i-1].isAnimal==false||Board[l][i-1].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i - 1].animal.AnimalName == animal.AnimalName)
+                    {
+                        numUpLeft++;
+                        tempLine.add(Board[l][i-1]);
+                    }
+                    i -= 2;
+                    l--;
+                }
+                if (tempLine.size()>longestline.size())
+                {
+                    longestline.clear();
+                    longestline.addAll(tempLine);
+                    tempLine.clear();
+                }
+            }
+            if (Board[x][y+1]==null)
+            {
+            }
+            else if (Board[x][y+1].isAnimal==false)
+            {
+            }
+            else if(Board[x][y+1].animal.AnimalName==animal.AnimalName)
+            {
+                int l = x, i = y;
+                while (l < 8 && i < 8)
+                {
+                    if (Board[l][i]==null||Board[l][i].isAnimal==false||Board[l][i].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i].animal.AnimalName == animal.AnimalName)
+                    {
+                        numDownRight++;
+                        tempLine.add(Board[l][i]);
+                    }
+                    if (Board[l][i+1]==null||Board[l][i+1].isAnimal==false||Board[l][i+1].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i + 1].animal.AnimalName == animal.AnimalName)
+                    {
+                        numDownRight++;
+                        tempLine.add(Board[l][i+1]);
+                    }
+                    i += 2;
+                    l++;
+                }
+                if (tempLine.size()>longestline.size())
+                {
+                    longestline.clear();
+                    longestline.addAll(tempLine);
+                    tempLine.clear();
+                }
+            }
+            if (Board[x-1][y+1]==null)
+            {
+            }
+            else if (Board[x-1][y+1].isAnimal==false)
+            {
+            }
+            else if(Board[x-1][y+1].animal.AnimalName==animal.AnimalName)
+            {
+                numDownLeft++;
+                tempLine.add(Board[x][y]);
+                int l = x-1, i = y+1;
+                while (l > 0 && i < 8)
+                {
+                    if (Board[l][i]==null||Board[l][i].isAnimal==false||Board[l][i].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i].animal.AnimalName == animal.AnimalName)
+                    {
+                        numDownLeft++;
+                        tempLine.add(Board[l][i]);
+                    }
+                    if (Board[l][i+1]==null||Board[l][i+1].isAnimal==false||Board[l][i+1].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i + 1].animal.AnimalName == animal.AnimalName)
+                    {
+                        numDownLeft++;
+                        tempLine.add(Board[l][i+1]);
+                    }
+                    i += 2;
+                    l--;
+                }
+            }
+            if (tempLine.size()>longestline.size())
+            {
+                longestline.clear();
+                longestline.addAll(tempLine);
+                tempLine.clear();
+            }
+        }
+        else if (y%2!=0)
+        {
+            if (Board[x+1][y-1]==null)
+            {
+            }
+            else if (Board[x+1][y-1].isAnimal==false)
+            {
+            }
+            else if (Board[x+1][y-1].animal.AnimalName==animal.AnimalName)
+            {
+                int l = x+1, i = y-1;
+                while (l < 8 && i >= 0)
+                {
+                    if (Board[l][i]==null||Board[l][i].isAnimal==false||Board[l][i].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i].animal.AnimalName == animal.AnimalName)
+                    {
+                        numUpRight++;
+                        tempLine.add(Board[l][i]);
+                    }
+                    if (Board[l][i-1]==null||Board[l][i-1].isAnimal==false||Board[l][i-1].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i - 1].animal.AnimalName == animal.AnimalName)
+                    {
+                        numUpRight++;
+                        tempLine.add(Board[l][i-1]);
+                    }
+                    i -= 2;
+                    l++;
+                }
+                if (tempLine.size()>longestline.size())
+                {
+                    longestline.clear();
+                    longestline.addAll(tempLine);
+                    tempLine.clear();
+                }
+            }
+            if (Board[x][y-1]==null)
+            {
+            }
+            else if (Board[x][y-1].isAnimal==false)
+            {
+            }
+            else if(Board[x][y-1].animal.AnimalName==animal.AnimalName)
+            {
+                int l = x, i = y;
+                while (l > 0 && i >= 0)
+                {
+                    if (Board[l][i]==null||Board[l][i].isAnimal==false||Board[l][i].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i].animal.AnimalName == animal.AnimalName)
+                    {
+                        numUpLeft++;
+                        tempLine.add(Board[l][i]);
+                    }
+                    if (Board[l][i-1]==null||Board[l][i-1].isAnimal==false||Board[l][i-1].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i - 1].animal.AnimalName == animal.AnimalName)
+                    {
+                        numUpLeft++;
+                        tempLine.add(Board[l][i-1]);
+                    }
+                    i -= 2;
+                    l--;
+                }
+                if (tempLine.size()>longestline.size())
+                {
+                    longestline.clear();
+                    longestline.addAll(tempLine);
+                    tempLine.clear();
+                }
+            }
+            if(Board[x+1][y+1]==null)
+            {
+            }
+            else if (Board[x+1][y+1].isAnimal==false)
+            {
+            }
+            else if (Board[x+1][y+1].animal.AnimalName==animal.AnimalName)
+            {
+                int l = x+1, i = y+1;
+                while (l < 8 && i < 8)
+                {
+                    if (Board[l][i]==null||Board[l][i].isAnimal==false||Board[l][i].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i].animal.AnimalName == animal.AnimalName)
+                    {
+                        numDownRight++;
+                    }
+                    if (Board[l][i+1]==null||Board[l][i+1].isAnimal==false||Board[l][i+1].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i + 1].animal.AnimalName == animal.AnimalName)
+                    {
+                        numDownRight++;
+                    }
+                    i += 2;
+                    l++;
+                }
+                if (tempLine.size()>longestline.size())
+                {
+                    longestline.clear();
+                    longestline.addAll(tempLine);
+                    tempLine.clear();
+                }
+            }
+            if (Board[x][y+1]==null)
+            {
+            }
+            else if (Board[x][y+1].isAnimal==false)
+            {
+            }
+            else if (Board[x][y+1].animal.AnimalName==animal.AnimalName)
+            {
+                numDownLeft++;
+                int l = x, i = y;
+                while (l > 0 && i < 8)
+                {
+                    if (Board[l][i]==null||Board[l][i].isAnimal==false||Board[l][i].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    if (Board[l][i].animal.AnimalName == animal.AnimalName)
+                    {
+                        numDownLeft++;
+                    }
+                    if (Board[l][i+1]==null||Board[l][i-1].isAnimal==false||Board[l][i+1].animal.AnimalName != animal.AnimalName)
+                    {
+                        break;
+                    }
+                    else if (Board[l][i + 1].animal.AnimalName == animal.AnimalName)
+                    {
+                        numDownLeft++;
+                    }
+                    i += 2;
+                    l--;
+                }
+            }
+            if (tempLine.size()>longestline.size())
+            {
+                longestline.clear();
+                longestline.addAll(tempLine);
+                tempLine.clear();
+            }
+        }
+        for (int removeanimal=0;removeanimal<longestline.size();removeanimal++)
+        {
+            Board[longestline.get(removeanimal).X][longestline.get(removeanimal).Y].removeAnimal();
+        }
+        return longestline.size();}
+
     public int BearpointsA(){
         int numPairs=0;
         for (int i=0;i<8;i++) {
@@ -206,6 +574,30 @@ public class Player {
         }
         if (numPairs>=8){return 27;}
         return 0;
+    }
+
+    public int ElkPointsA()
+    {
+        int totalpoints=0;
+        for (int i=0;i<8;i++)
+        {
+            for (int l=0;l<8;l++)
+            {
+                if (Board[l][i]==null||Board[l][i].isAnimal==false)
+                {
+                }
+                else if (Board[l][i].animal.AnimalName=="Elk")
+                {
+                    switch (linechecker(l,i)){
+                        case 1->{totalpoints+=2;}
+                        case 2->{totalpoints+=5;}
+                        case 3->{totalpoints+=9;}
+                        case 4->{totalpoints+=15;}
+                    }
+                }
+            }
+        }
+        return totalpoints;
     }
 
 }
