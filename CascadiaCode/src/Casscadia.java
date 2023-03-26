@@ -20,13 +20,13 @@ import java.awt.geom.*;
 public class Casscadia implements ActionListener {
 
 
-    public int NumhabitatTiles; //used to store number of habitat tiles that will be used depending on number of players//
+    public int NumhabitatTiles; //used ot store numeber of habitat tiles that will be used depending on number of players//
 
     public Casscadia() throws IOException {
     }
 
-    static String CurrentText = "Click any of the 4 habitats above to begin"; //this is the text that is displayed at the bottom of the window. SEE LINE 163
-    static String turnInfo = "hello player 1";//this is the text that is displayed on the bottom right of the window
+    static String CurrentText = "Click any of the 4 habitats above to begin";
+    static String turnInfo = "hello player 1";
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -34,39 +34,41 @@ public class Casscadia implements ActionListener {
     }
 
 
-    enum Habitatselect {forest, wetland, river, mountain, prairie,none} // used when implementing habitat class. SEE HABITAT.JAVA//
+    enum Habitatselect {forest, wetland, river, mountain, prairie,none} // used when implementing habitat class//
 
-    enum Animalselect {Hawk, Bear, Elk, Salmon, Fox, none} // used when implementing animal class. SEE ANIMAL.JAVA//
+    enum Animalselect {Hawk, Bear, Elk, Salmon, Fox, none} // used when implementing animal class//
 
-    ArrayList<Player> Players = new ArrayList<Player>(); //this is a list of the players playing the game
-    ArrayList<Animal> AnimalCards = new ArrayList<Animal>();// this is the pot of animal cards from which the player selects one each rounds
-    ArrayList<Habitat> HabitatCards = new ArrayList<Habitat>();// this is the pot of habitat cards from which the player selects one each rounds
-    Habitat currentHabitat = null; //this is the current habitat the user has in his hand.
-    Animal currentAnimal = null;//this is the current animal the user has in his hand.
-    boolean useWildlifeToken=false;// boolean used when the user wants to use a wildlife token. SEE LINE 123
-    boolean canReshuffle = false; // boolean value to check if a reshuffle is possible
-    int currentRotation=0; //this variable is used when a tile is being rotated. SEE rotateHabitat ON LINE 157 IN HABITAT.JAVA
-    int PlayerTurn = 0;//variable that stores which players turn it is
-    int turns = 1;// keeps track of how many turns have happened
-    int NumPLayers;// number of players in the game.INITIALISED IN InitialPrompt ON LINE 319
+    ArrayList<Player> Players = new ArrayList<Player>();
+    ArrayList<Animal> AnimalCards = new ArrayList<Animal>();
+    ArrayList<Habitat> HabitatCards = new ArrayList<Habitat>();
+    ArrayList<BoardTile> allTiles = new ArrayList<BoardTile>();
+    Habitat currentHabitat = null;
+    Animal currentAnimal = null;
+    boolean useWildlifeToken=false;
+    boolean canReshuffle = false;
+
+    int turnCount = 0;
+    int currentRotation=0;
+    int PlayerTurn = 0;
+    int turns = 1;
+    int NumPLayers;
     static int animalIndex;
 
     public static void main(String[] args) throws IOException {
-        Casscadia hello = new Casscadia(); //new instance of the casscadia class which the whole game runs on
-        hello.Initialprompt(); //gets data needed to start the game. SEE LINE 319
+        Casscadia hello = new Casscadia();
+        hello.Initialprompt();
         hello.Turn();
 
-        //new JFRAME to run game
         JFrame frame = new JFrame();
         frame.setBounds(10, 10, 512, 650);
         frame.setUndecorated(true);
-        frame.setLocationRelativeTo(null);  //sets jframe to middle of screen
+        frame.setLocationRelativeTo(null);
         JPanel pn = new JPanel() {
 
 
             @Override
             public void paint(Graphics g) {
-                //draws square grid/board
+                //draw square grid/board
                 for (int y = 0; y < 8; y++) {
                     for (int x = 0; x < 8; x++) {
 
@@ -78,14 +80,13 @@ public class Casscadia implements ActionListener {
 
                     }
                 }
-                //ends game after 40 turns
                 if (hello.turns>40){
                     return;
                 }
 
 
 
-                //Displays the 4 tiles and animals tha you can choose from each turn
+                //Current Selection
                 for (int i = 0; i < 4; i++) {
                     g.drawImage(hello.AnimalCards.get(i).animalImage, 154 + (64 * i), 576, this);
                     g.drawImage(hello.HabitatCards.get(i).habitatImage, 154 + (64 * i), 518, this);
@@ -94,7 +95,6 @@ public class Casscadia implements ActionListener {
                     }
                 }
 
-                //Displays the current board of the current players turn with all of his/her cards
                 for (int z = 0; z < hello.Players.get(hello.PlayerTurn).allTiles.size(); z++) {
                     g.drawImage(hello.Players.get(hello.PlayerTurn).allTiles.get(z).habitat.habitatImage, hello.Players.get(hello.PlayerTurn).allTiles.get(z).xPosition, hello.Players.get(hello.PlayerTurn).allTiles.get(z).yPosition, this);
                     if (hello.Players.get(hello.PlayerTurn).allTiles.get(z).isAnimal == true) {
@@ -106,9 +106,7 @@ public class Casscadia implements ActionListener {
                     }
                 }
 
-
                 hello.ReshuffleCheck();
-                //button that can be used if a reshuffle is available otherwise useless
                 JButton yes = new JButton("Reshuffle");
                 yes.addActionListener(new ActionListener() {
 
@@ -123,7 +121,6 @@ public class Casscadia implements ActionListener {
                 yes.setBounds(0, 512, 100, 50);
                 frame.add(yes);
 
-                //button that can be used to use a wildlife token if the current player has more than 0 wildlife tokens
                     JButton wildlife_token = new JButton("Wildlife Token");
                     wildlife_token.addActionListener(new ActionListener() {
 
@@ -140,7 +137,6 @@ public class Casscadia implements ActionListener {
                     wildlife_token.setBounds(0, 562, 100, 50);
                     frame.add(wildlife_token);
 
-                //button used to rotate the tile that is currently selected otherwise of no tile is currently selected it will do nothing
                 JButton rotate = new JButton("Rotate");
                 rotate.addActionListener(new ActionListener() {
 
@@ -160,28 +156,26 @@ public class Casscadia implements ActionListener {
                 rotate.setBounds(410, 562, 100, 50);
                 frame.add(rotate);
 
-                //text box at the bottom of the window that displays what is in the CurrentText variable. SEE LINE 28
                 JTextField textbox = new JTextField();
                 textbox.setSize(new Dimension(512, 38));
                 textbox.setBounds(0, 612, 512, 38);
                 textbox.setText(CurrentText);
 
                 add(textbox);
-                //text box at the bottom right of the window that displays what is in the turnInfo variable. SEE LINE 29
                 JTextField turnInfoBox = new JTextField();
                 turnInfoBox.setSize(new Dimension(102, 50));
                 turnInfoBox.setBounds(410, 512, 102, 50);
                 turnInfoBox.setText(turnInfo);
 
                 add(turnInfoBox);
-                //text box beside ethe wildlife token button that displays number of wildlife tokens the current player has. SEE LINE 26 IN PLAYER.JAVA
+
                 JTextField numWildlifeTokens = new JTextField();
                 numWildlifeTokens.setSize(new Dimension(50, 50));
                 numWildlifeTokens.setBounds(100, 562, 50, 50);
                 numWildlifeTokens.setText(String.valueOf(hello.Players.get(hello.PlayerTurn).wildlifeTokens));
 
                 add(numWildlifeTokens);
-                //text box beside reshuffle button that displays whether you can reshuffle. SEE LINE 47
+                //wildlife token button
                 JTextField CanReshuffle = new JTextField();
                 CanReshuffle.setSize(new Dimension(50, 50));
                 CanReshuffle.setBounds(100, 512, 50, 50);
@@ -201,9 +195,9 @@ public class Casscadia implements ActionListener {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {//code that controls what happens when the mouse if pressed at different locations in the window
-                int x;  //used to find x co-ordinate of the tile you have clicked on the grid
-                int y = Math.floorDiv((e.getY()), 64);//used to find y co-ordinate of the tile you have clicked on the grid
+            public void mousePressed(MouseEvent e) {
+                int x;
+                int y = Math.floorDiv((e.getY()), 64);
                 if (e.getX()<32){
                     x=9;
                 }
@@ -212,7 +206,7 @@ public class Casscadia implements ActionListener {
                 }
                 else{x = Math.floorDiv(e.getX(), 64);}
 
-              if (hello.currentHabitat != null && x < 8 && y < 8 && hello.Players.get(hello.PlayerTurn).Board[x][y] == null && hello.Players.get(hello.PlayerTurn).canPlace(x,y)) {//code to place a habitat card
+              if (hello.currentHabitat != null && x < 8 && y < 8 && hello.Players.get(hello.PlayerTurn).Board[x][y] == null && hello.Players.get(hello.PlayerTurn).canPlace(x,y)) {
                     BoardTile newtile = null;
                     try {
                         newtile = new BoardTile(hello.currentHabitat, x, y,hello.currentRotation);
@@ -226,7 +220,7 @@ public class Casscadia implements ActionListener {
                     hello.currentHabitat = null;
                     hello.currentRotation=0;
                     hello.CurrentText = ("Please place " + hello.currentAnimal.AnimalName+" or use a wildlife token");
-                } else if (hello.currentAnimal != null && x < 8 && y < 8 && hello.Players.get(hello.PlayerTurn).Board[x][y] != null && hello.Players.get(hello.PlayerTurn).Board[x][y].isAnimal == false) { //code to place an animal card
+                } else if (hello.currentAnimal != null && x < 8 && y < 8 && hello.Players.get(hello.PlayerTurn).Board[x][y] != null && hello.Players.get(hello.PlayerTurn).Board[x][y].isAnimal == false) {
                     if (hello.Players.get(hello.PlayerTurn).Board[x][y].habitat.isPossible((hello.currentAnimal)) == true) {
                         hello.Players.get(hello.PlayerTurn).Board[x][y].addAnimal(hello.currentAnimal);
                         for (int z = 0; z < hello.Players.get(hello.PlayerTurn).allTiles.size(); z++) {
@@ -249,12 +243,11 @@ public class Casscadia implements ActionListener {
                         frame.repaint();
                     }
 
-                } else if (hello.currentAnimal == null && hello.useWildlifeToken==false) { //code to select current habitat
+                } else if (hello.currentAnimal == null && hello.useWildlifeToken==false) {
                     if (e.getX() > 154 && e.getX() < 216 && e.getY() > 518 && e.getY() < 580) {
                         hello.currentHabitat = hello.HabitatCards.get(0);
                         animalIndex = 0;
                         hello.CurrentText = (hello.currentHabitat.getHabitatName() + " is selected");
-
 
                         frame.repaint();
                     } else if (e.getX() > 218 && e.getX() < 280 && e.getY() > 518 && e.getY() < 580) {
@@ -274,7 +267,7 @@ public class Casscadia implements ActionListener {
                         frame.repaint();
                     }
                 }
-                else if (hello.currentAnimal == null && hello.useWildlifeToken==true) {// code when a wildlife token is used
+                else if (hello.currentAnimal == null && hello.useWildlifeToken==true) {
                     if (e.getX() > 154 && e.getX() < 186 && e.getY() > 576 && e.getY() < 608) {
                         hello.currentAnimal = hello.AnimalCards.get(0);
                         animalIndex = 0;
@@ -364,14 +357,14 @@ public class Casscadia implements ActionListener {
     }
 
     public void CreateTiles() throws IOException {          //Creates Array lists fo animal and habitat Tiles needed to play Casscadia
-        for (int i = 0; i < 20; i++) {//adding animal tiles to list
+        for (int i = 0; i < 20; i++) {
             AnimalCards.add(new Animal(Animalselect.Hawk));
             AnimalCards.add(new Animal(Animalselect.Bear));
             AnimalCards.add(new Animal(Animalselect.Elk));
             AnimalCards.add(new Animal(Animalselect.Salmon));
             AnimalCards.add(new Animal(Animalselect.Fox));
         }
-        for (int l = 0; l < 5; l++) {//adding keystone tiles to list//
+        for (int l = 0; l < 5; l++) {//keystone tiles//
             HabitatCards.add(new Habitat(Habitatselect.forest, Habitatselect.none));
             HabitatCards.add(new Habitat(Habitatselect.wetland, Habitatselect.none));
             HabitatCards.add(new Habitat(Habitatselect.river, Habitatselect.none));
@@ -379,7 +372,7 @@ public class Casscadia implements ActionListener {
             HabitatCards.add(new Habitat(Habitatselect.prairie, Habitatselect.none));
         }
         int m=0;
-        while (m<NumhabitatTiles-25){//creates random habitat tiles with more than 1 habitat on them
+        while (m<NumhabitatTiles-25){
             Random rand = new Random();
             int selectingHabitat1 = rand.nextInt(4);
             int selectingHabitat2 = rand.nextInt(4);
@@ -389,11 +382,11 @@ public class Casscadia implements ActionListener {
             m++;
             }
         }
-
+        //need to add habitat tiles with more than one habitat on them//
 
     }
 
-    public void Turn() {//code that at he begining of the game which shuffles cards and checks if a reshuffle is available
+    public void Turn() {
         Collections.shuffle(HabitatCards);
         int animalReshuffleCheck = 0;
         Collections.shuffle(AnimalCards);
@@ -432,7 +425,7 @@ public class Casscadia implements ActionListener {
 
     }
 
-    public void plusPlayerTurn() { //shuffles cards and moves on to the next player after every turn
+    public void plusPlayerTurn() {
         if (this.PlayerTurn < NumPLayers - 1) {
             this.PlayerTurn++;
         } else {
@@ -445,11 +438,11 @@ public class Casscadia implements ActionListener {
         this.CurrentText="Select a Habitat and Animal or place a habitat and use a wildlife token to choose an animal";
         turns++;
     }
-    public void plusRotation() {//code increments current rotation variable and resets to 0 once the number 4 is reached as the cards can only be rotated 4 times(360 degrees)
+    public void plusRotation() {
         if (this.currentRotation < 3) {
             this.currentRotation++;
         } else {
             currentRotation = 0;
         }
-
-    }}
+    }
+}

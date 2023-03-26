@@ -114,7 +114,72 @@ public class Player {
                 return false;
             }
             else {return true;}
-
         }
     }
+
+
+    public ArrayList<BoardTile> checkPair(BoardTile tileToCheck) {
+        int X=tileToCheck.X;
+        int Y=tileToCheck.Y;
+        ArrayList<BoardTile> occuredTiles=new ArrayList<BoardTile>();
+        int originalX = X;
+        int originalY = Y;
+        if (Board[X][Y]==null||Board[X][Y].animal==null){
+            return null;
+        }
+        if (Y % 2 == 0) {
+            Y = Y - 1;
+            X = X - 1;
+            for (int i = 0; i < 3; i++) {
+                Y += i;
+                for (int l = 0; l < 2; l++) {
+                    X += l;
+                    if (X < 0 || X > 8 || Y < 0 || Y > 8) {}
+                    else if (Board[X][Y]==null||Board[X][Y].animal==null){}
+                    else if (X == originalX && Y == originalY) {
+                        if (Board[X + 1][Y]==null||Board[X+1][Y].animal==null){}
+                        else if (Board[originalX][originalY].animal.AnimalName == Board[X + 1][Y].animal.AnimalName) {
+                            occuredTiles.add(findTile(X+1,Y));
+                        }
+                    } else if (Board[originalX][originalY].animal.AnimalName == Board[X][Y].animal.AnimalName) {
+                        occuredTiles.add(findTile(X,Y));
+                    }
+                    X=originalX-1;
+                }
+                Y=originalY-1;
+            }
+
+        } else {
+            Y = Y - 1;
+            for (int i = 0; i < 3; i++) {
+                Y += i;
+                for (int l = 0; l < 2; l++) {
+                    X += l;
+                    if (X < 0 || X > 8 || Y < 0 || Y > 8) {
+                    }
+                    else if (Board[X][Y]==null||Board[X][Y].animal==null) {}
+                    else if (X == originalX && Y == originalY) {
+                        if (Board[X - 1][Y]==null||Board[X-1][Y].animal==null){}
+                        else if (Board[originalX][originalY].animal.AnimalName == Board[X - 1][Y].animal.AnimalName) {
+                            occuredTiles.add(findTile(X-1,Y));
+                        }
+                    } else if (Board[originalX][originalY].animal.AnimalName == Board[X][Y].animal.AnimalName) {
+                        occuredTiles.add(findTile(X,Y));
+                    }
+                    X=originalX;
+                }
+                Y=originalY-1;
+            }
+        }
+        return occuredTiles;
+    }
+    public BoardTile findTile(int x,int y){
+        for (int i=0;i<allTiles.size();i++){
+            if (allTiles.get(i).X==x&&allTiles.get(i).Y==y){
+                return allTiles.get(i);
+            }
+        }
+        return null;
+    }
+
 }
