@@ -17,11 +17,21 @@ public class Player {
 
     }
     String Name;
+    int EndPoints;
     int startNum;//number to choose which starter tile you get
     StarterTIle startingTile=new StarterTIle(startNum);// players starting tile
     BoardTile[][] Board=new BoardTile[8][8]; //board with tiles on it
     ArrayList<BoardTile> allTiles=new ArrayList<BoardTile>(); //all tiles the user has placed
     int wildlifeTokens=1;
+    public void getPoints(){
+        System.out.println("Elk Points: "+ElkPointsA());
+        System.out.println("Hawk Points: "+HawkpointsA());
+        System.out.println("Fox Points: "+FoxPointsA());
+        System.out.println("Bear Points: "+BearpointsA());
+        System.out.println("Salmon Points: ");
+        this.EndPoints=(ElkPointsA()+ HawkpointsA()+FoxPointsA()+BearpointsA());
+        System.out.println("Total Points= "+(ElkPointsA()+ HawkpointsA()+FoxPointsA()+BearpointsA()));
+    }
 
     public String getName(){
         return this.Name;
