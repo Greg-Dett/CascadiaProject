@@ -118,6 +118,7 @@ public class Player {
     }
 
 
+
     public ArrayList<BoardTile> checkPair(BoardTile tileToCheck) {
         int X=tileToCheck.X;
         int Y=tileToCheck.Y;
@@ -180,6 +181,31 @@ public class Player {
             }
         }
         return null;
+    }
+
+    public int BearpointsA(){
+        int numPairs=0;
+        for (int i=0;i<8;i++) {
+            for (int l=0;l<8;l++){
+                if (Board[i][l]==null){}
+                else if (checkPair(Board[i][l])==null){}
+                else if(Board[i][l].animal.AnimalName=="Bear"&&checkPair(Board[i][l]).size() == 1 && checkPair(checkPair(Board[i][l]).get(0)).size() == 1) {
+                    numPairs++;
+                }
+            }}
+        switch(numPairs){
+            case 2 -> {
+                return 4;
+            }
+            case 4-> {
+                return 11;
+            }
+            case 6->{
+                return 19;
+            }
+        }
+        if (numPairs>=8){return 27;}
+        return 0;
     }
 
 }
