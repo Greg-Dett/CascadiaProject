@@ -1,3 +1,9 @@
+/*
+ *  Student number 21400044 -        Thomas Reynolds  -         gitID Reynolds21
+ *  Student number 21305806 -        Greg Dettling    -         gitID Greg-Dett
+ *  Student number 21463472 -        Ganto Badammoyun -         gitID Gantobadan
+ * */
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
