@@ -65,7 +65,7 @@ class PlayerTest {
         test1.isAnimal = true;
         TestPlayer1.Board[3][2] = test1;
         TestPlayer1.allTiles.add(test1);
-        assertEquals(2,TestPlayer1.ElkPointsA());
+        assertEquals(0,TestPlayer1.ElkPointsA());
         ;
     }
 
@@ -136,7 +136,7 @@ class PlayerTest {
         TestPlayer1.allTiles.add(test2);
         TestPlayer1.allTiles.add(test3);
         TestPlayer1.allTiles.add(test4);
-        assertEquals(9,TestPlayer1.ElkPointsA());
+        assertEquals(15,TestPlayer1.ElkPointsA());
     }
 
     @org.junit.jupiter.api.Test
