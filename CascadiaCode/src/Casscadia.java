@@ -52,8 +52,8 @@ public class Casscadia implements ActionListener {
     boolean useWildlifeToken=false;// boolean used when the user wants to use a wildlife token. SEE LINE 123
     boolean canReshuffle = false; // boolean value to check if a reshuffle is possible
     int currentRotation=0; //this variable is used when a tile is being rotated. SEE rotateHabitat ON LINE 157 IN HABITAT.JAVA
-    int PlayerTurn = 1;//variable that stores which players turn it is
-    int turns = 30;// keeps track of how many turns have happened
+    int PlayerTurn = 0;//variable that stores which players turn it is
+    int turns = 0;// keeps track of how many turns have happened
     int NumPLayers;// number of players in the game.INITIALISED IN InitialPrompt ON LINE 319
     static int animalIndex;
     boolean autoReshuffle=false; //check for an auto cull
