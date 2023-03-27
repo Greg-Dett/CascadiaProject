@@ -370,8 +370,8 @@ public class Casscadia implements ActionListener {
     public void Initialprompt() throws IOException {   //Game Set-up
 
         System.out.println("Enter number of players (2-4): ");
-//        Scanner NumPlayersScanner = new Scanner(System.in);  // Create a Scanner object
-        NumPLayers=2;
+        Scanner NumPlayersScanner = new Scanner(System.in);  // Create a Scanner object
+        NumPLayers=NumPlayersScanner.nextInt();
         if (NumPLayers < 2 || NumPLayers > 4) {
             throw new IllegalArgumentException("Incorrect number of users");
         }
