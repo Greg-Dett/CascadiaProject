@@ -6,6 +6,7 @@
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Player {
@@ -27,8 +28,18 @@ public class Player {
     int startNum;//number to choose which starter tile you get
     StarterTIle startingTile=new StarterTIle(startNum);// players starting tile
     BoardTile[][] Board=new BoardTile[8][8]; //board with tiles on it
-    ArrayList<BoardTile> allTiles=new ArrayList<BoardTile>(); //all tiles the user has placed
+    ArrayList<BoardTile> allTiles=new ArrayList<>(); //all tiles the user has placed
+    HashMap<Point,BoardTile> surroundingtiles=new HashMap<>();
     int wildlifeTokens=1;
+    enum direction{
+        topleft,
+        topright,
+        left,
+        right,
+        bottomleft,
+        bottomright
+    }
+
     public void getPoints(){
         System.out.println("Elk Points: "+ElkPointsA());
         System.out.println("Hawk Points: "+HawkpointsA());
@@ -37,6 +48,19 @@ public class Player {
         System.out.println("Salmon Points: ");
         this.EndPoints=(ElkPointsA()+ HawkpointsA()+FoxPointsA()+BearpointsA());
         System.out.println("Total Points= "+(ElkPointsA()+ HawkpointsA()+FoxPointsA()+BearpointsA()));
+        getSurroundingSameHabitats(Board[3][3],Board[3][3].habitat.habitat1);
+    }
+    public int getAnimalPoints(){
+        return ElkPointsA()+ HawkpointsA()+FoxPointsA()+BearpointsA();
+
+    }
+    public int HabitatPoints(){
+
+return -1;
+    }
+    public void removeTile(int x,int y){
+        Board[x][y]=null;
+        allTiles.remove(findTilePLace(x,y));
     }
 
     public String getName(){
@@ -68,7 +92,7 @@ public class Player {
             }
         }
         else if (X==7&&Y==0) {
-            if (Board[X - 1][Y] == null && Board[X][Y + 1] == null && Board[X+-1][Y + 1] == null) {
+            if (Board[X - 1][Y] == null && Board[X][Y + 1] == null && Board[X-1][Y + 1] == null) {
                 return false;
             }
             else {
@@ -197,6 +221,14 @@ public class Player {
             }
         }
         return null;
+    }
+    public int findTilePLace(int x,int y){
+        for (int i=0;i<allTiles.size();i++){
+            if (allTiles.get(i).X==x&&allTiles.get(i).Y==y){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public int linechecker(int x,int y)
@@ -749,5 +781,126 @@ public class Player {
         }
         return occuredTiles;
     }
+
+    public boolean checkIfHabitatsTouching(BoardTile tile1, BoardTile tile2, Casscadia.Habitatselect matchingHabitats, direction positionofHabitat2){
+            if (tile1.habitat.habitat2== Casscadia.Habitatselect.none&&tile2.habitat.habitat2== Casscadia.Habitatselect.none){
+                return true;}
+         if (tile1.habitat.topleft==matchingHabitats){
+             if (positionofHabitat2==direction.topleft||positionofHabitat2==direction.topright){
+                 if (tile2.habitat.bottomleft==matchingHabitats||tile2.habitat.bottomright==matchingHabitats){
+                     return true;
+                 }
+             } else if (positionofHabitat2==direction.left&&tile2.habitat.bottomright==matchingHabitats||tile2.habitat.topright==matchingHabitats) {
+                 return true;
+
+             }
+         }
+         else if (tile1.habitat.topright==matchingHabitats){
+             if (positionofHabitat2==direction.topleft||positionofHabitat2==direction.topright){
+                 if (tile2.habitat.bottomleft==matchingHabitats||tile2.habitat.bottomright==matchingHabitats){
+                     return true;
+                 }
+             } else if (positionofHabitat2==direction.right&&tile2.habitat.bottomleft==matchingHabitats||tile2.habitat.topleft==matchingHabitats) {
+                 return true;
+             }
+
+         }
+         else if (tile1.habitat.bottomright==matchingHabitats){
+             if (positionofHabitat2==direction.bottomleft||positionofHabitat2==direction.bottomright){
+                 if (tile2.habitat.topleft==matchingHabitats||tile2.habitat.topright==matchingHabitats){
+                     return true;
+                 }
+             } else if (positionofHabitat2==direction.right&&tile2.habitat.bottomleft==matchingHabitats||tile2.habitat.topleft==matchingHabitats) {
+                 return true;
+             }
+
+         }
+         else if (tile1.habitat.bottomleft==matchingHabitats){
+             if (positionofHabitat2==direction.bottomleft||positionofHabitat2==direction.bottomright){
+                 if (tile2.habitat.topleft==matchingHabitats||tile2.habitat.topright==matchingHabitats){
+                     return true;}
+                 }else if (positionofHabitat2==direction.left&&tile2.habitat.bottomright==matchingHabitats||tile2.habitat.topright==matchingHabitats) {
+                     return true;
+
+                 }
+
+         }
+
+         return false;
+    }
+    public void getSurroundingSameHabitats(BoardTile tileToCheck, Casscadia.Habitatselect habitatToCheck) {
+        int X=tileToCheck.X;
+        int Y=tileToCheck.Y;
+        int directionCounter=0;
+
+
+        int originalX = X;
+        int originalY = Y;
+        if (Board[X][Y]==null||Board[X][Y].animal==null){
+            return;
+        }
+        if (Y % 2 == 0) {
+            Y = Y - 1;
+            X = X - 1;
+
+            for (int i = 0; i < 3; i++) {
+                Y += i;
+                for (int l = 0; l < 2; l++) {
+                    X += l;
+                    if (X < 0 || X > 8 || Y < 0 || Y > 8) {}
+                    else if (Board[X][Y]==null){System.out.println("null");}
+                    else if (X == originalX && Y == originalY) {
+                        if (Board[X+1][Y]==null) {System.out.println("null");}
+                        else if(checkIfHabitatsTouching(Board[originalX][originalY],Board[X+1][Y],habitatToCheck,direction.values()[directionCounter])&&!surroundingtiles.containsKey(new Point(X+1,Y,0))) {
+                            surroundingtiles.put(new Point(X+1,Y,0),findTile(X + 1, Y));
+                            getSurroundingSameHabitats(findTile(X+1,Y),habitatToCheck);
+                        }
+
+
+                    } else if (checkIfHabitatsTouching(Board[originalX][originalY],Board[X][Y],habitatToCheck,direction.values()[directionCounter])&&!surroundingtiles.containsKey(new Point(X,Y,0))){
+                        System.out.println("reached inside");
+                        surroundingtiles.put(new Point(X,Y,0),findTile(X,Y));
+                        getSurroundingSameHabitats(findTile(X,Y),habitatToCheck);
+                    }
+                    X=originalX-1;
+                    directionCounter++;
+                }
+                Y=originalY-1;
+                directionCounter++;
+            }
+
+        } else {
+            Y = Y - 1;
+            for (int i = 0; i < 3; i++) {
+                Y += i;
+                System.out.println(directionCounter);
+                for (int l = 0; l < 2; l++) {
+                    X += l;
+                    if (X < 0 || X > 8 || Y < 0 || Y > 8) {}
+                    else if (Board[X][Y]==null) {System.out.println("null");}
+                    else if (X == originalX && Y == originalY) {
+                        if (Board[X-1][Y]==null) {System.out.println("null");}
+                        else if (checkIfHabitatsTouching(Board[originalX][originalY], Board[X - 1][Y], habitatToCheck,direction.values()[directionCounter])&&!surroundingtiles.containsKey(new Point(X-1,Y,0))) {
+                                surroundingtiles.put(new Point(X - 1, Y, 0), findTile(X - 1, Y));
+                                getSurroundingSameHabitats(findTile(X - 1, Y),habitatToCheck);
+                            }
+                        }
+
+                    else if (checkIfHabitatsTouching(Board[originalX][originalY],Board[X][Y],habitatToCheck,direction.values()[directionCounter])&&!surroundingtiles.containsKey(new Point(X,Y,0))){
+                        surroundingtiles.put(new Point(X,Y,0),findTile(X,Y));
+                        getSurroundingSameHabitats(findTile(X,Y),habitatToCheck);
+                        System.out.println("reached inside");
+                    }
+                    X=originalX;
+                directionCounter++;
+                }
+                Y=originalY-1;
+                directionCounter++;
+            }
+        }
+    }
+
+
+
 
 }

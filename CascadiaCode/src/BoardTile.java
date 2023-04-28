@@ -31,12 +31,7 @@ public class BoardTile {
         this.Y=y;
 
     }
-    enum direction{
-        topleft,
-        topright,
-        bottomleft,
-        bottomright
-    }
+
 
     public void removeAnimal()
     {
@@ -48,6 +43,6 @@ public class BoardTile {
     public void addAnimal(Animal newAnimal){//places an animal on the tile
         this.animal=newAnimal;
     }
-
+   ArrayList<BoardTile> surroundingTiles;
 
 }

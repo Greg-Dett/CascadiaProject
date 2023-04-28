@@ -15,6 +15,13 @@ public class Habitat {
     public Habitat(Casscadia.Habitatselect ex1, Casscadia.Habitatselect ex2) throws IOException {
     this.habitat1=ex1;
     this.habitat2=ex2;
+    this.topleft=ex1;
+    if (ex2==Casscadia.Habitatselect.none){
+        this.bottomright=ex1;
+    }else{
+    this.bottomright=ex2;}
+
+
         switch (habitat1){//sets name and picture for habitat based on constructor variables
             case forest -> {
                 switch (habitat2){
@@ -160,6 +167,27 @@ public class Habitat {
             }
         }
         public void rotateHabitat(int rotation) throws IOException {
+            Rotation=rotation;
+            switch (rotation){
+                case 0 -> {
+                    topleft=this.habitat1;
+                    bottomright=this.habitat2;
+                }
+                case 1 -> {
+                    topright=this.habitat1;
+                    bottomleft=this.habitat2;
+                }
+                case 2 -> {
+                    bottomright=this.habitat1;
+                    topleft=this.habitat2;
+                }
+                case 3 -> {
+                    bottomleft=this.habitat1;
+                    topright=this.habitat2;
+
+                }
+            }
+
             switch (this.habitat1){//code that changes the image of the habitat when it is rotated
                 case forest -> {
                     switch (this.habitat2){
@@ -278,6 +306,13 @@ public class Habitat {
     Image habitatImage;
     ArrayList<Animal> possibleAnimals=new ArrayList<Animal>(); //the animals that can be placed on the habitat
     int numPossibleAnimals; //number of animals that can be placed on teh habitat
+    int Rotation=0;
+
+    Casscadia.Habitatselect topleft;
+    Casscadia.Habitatselect topright;
+    Casscadia.Habitatselect bottomleft;
+    Casscadia.Habitatselect bottomright;
+
 
     Casscadia.Habitatselect habitat1;
     Casscadia.Habitatselect habitat2;
@@ -298,4 +333,7 @@ public class Habitat {
         return false;
     }
 
-}
+    }
+
+
+
