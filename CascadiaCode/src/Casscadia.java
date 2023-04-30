@@ -224,6 +224,7 @@ public class Casscadia implements ActionListener {
         };
         frame.add(pn);
         frame.setVisible(true);
+        System.out.println(Botcheck);
         if (Botcheck == true) {
             for (int i = 0; i < 40; i++) {
                 System.out.println("Please enter 1 to use Constructive Strategy");
@@ -368,7 +369,7 @@ public class Casscadia implements ActionListener {
         System.out.println("Please enter 1 for Regular Play or 2 for bot");
         Scanner NumPlayersScanner = new Scanner(System.in);  // Create a Scanner object
         NumPLayers=NumPlayersScanner.nextInt();
-        if (NumPLayers==0){Botcheck=true;
+        if (NumPLayers==2){Botcheck=true;
             NumPLayers=2;
         }else {
             System.out.println("Enter number of players (2-4): ");
@@ -577,11 +578,13 @@ public class Casscadia implements ActionListener {
                 Point temp = DisruptiveStrategy(Players.get(1));
                 max.x = temp.x;
                 max.y = temp.y;
+                currentHabitat=HabitatCards.get(max.Points);
             }
             else {
                 Point temp = DisruptiveStrategy(Players.get(0));
                 max.x = temp.x;
                 max.y = temp.y;
+                currentHabitat=HabitatCards.get(max.Points);
             }
         }
         System.out.println("Placing: "+currentHabitat.getHabitatName()+" at X:"+max.x+" Y:"+max.y);
@@ -635,7 +638,7 @@ public class Casscadia implements ActionListener {
             for (int i = 0; i < 8; i++) {
                 for (int l = 0; l < 8; l++) {
                     if (targetPlayer.canPlace(i, l)) {
-                        BoardTile temp = new BoardTile(currentHabitat, i, l, 0);
+                        BoardTile temp = new BoardTile(HabitatCards.get(z), i, l, 0);
                         targetPlayer.Board[i][l] = temp;
                         targetPlayer.allTiles.add(temp);
                         int test = targetPlayer.corridorStrat(targetPlayer.Board[i][l], targetPlayer.Board[i][l].habitat);
@@ -649,8 +652,9 @@ public class Casscadia implements ActionListener {
                 }
             }
         }
-
-        return corridorStrategy(Players.get(PlayerTurn),HabitatCards.get(tileNum));
+        Point temp=corridorStrategy(Players.get(PlayerTurn),HabitatCards.get(tileNum));
+        temp.Points=tileNum;
+        return temp;
     }
     public Point wildlifePlacementStrategy(Player currentPlayer,Animal currentAnimal){
         int maxPoints=0;
