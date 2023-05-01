@@ -659,11 +659,12 @@ public class Casscadia implements ActionListener {
     public Point wildlifePlacementStrategy(Player currentPlayer,Animal currentAnimal){
         int maxPoints=0;
         int x=0,y=0;
-
+        boolean place=false;
         for (int i=0;i<currentPlayer.allTiles.size();i++){
-            if (i==0) {
+            if (place==false&&currentPlayer.allTiles.get(i).isAnimal==false) {
                 x = currentPlayer.allTiles.get(i).X;
                 y = currentPlayer.allTiles.get(i).Y;
+                place=true;
             }
             if (currentPlayer.allTiles.get(i).habitat.isPossible(currentAnimal)){
                 currentPlayer.allTiles.get(i).addAnimal(currentAnimal);
