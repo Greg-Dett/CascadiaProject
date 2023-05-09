@@ -41,7 +41,9 @@ public class BoardTile {
 
 
     public void addAnimal(Animal newAnimal){//places an animal on the tile
+
         this.animal=newAnimal;
+        this.isAnimal=true;
     }
    ArrayList<BoardTile> surroundingTiles;
 

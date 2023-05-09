@@ -92,11 +92,16 @@ public class Casscadia implements ActionListener {
                 }
                 //ends game after 40 turns
                 if (turns == NumPLayers * 20) {
+                    int winner=0;
                     for (int x = 0; x < NumPLayers; x++) {
                         System.out.println(Players.get(x).Name + "'s Points");
                         Players.get(x).getPoints();
+                        if (Players.get(x).EndPoints>Players.get(winner).EndPoints){
+                            winner=x;
+                        }
                         turns++;
                     }
+                    System.out.println(Players.get(winner).Name+" wins");
                 }
                 if (turns > (NumPLayers * 20)) {
                     g.drawImage(endGame, 0, 0, this);
@@ -224,7 +229,7 @@ public class Casscadia implements ActionListener {
         };
         frame.add(pn);
         frame.setVisible(true);
-        System.out.println(Botcheck);
+
         if (Botcheck == true) {
             for (int i = 0; i < 40; i++) {
                 System.out.println("Please enter 1 to use Constructive Strategy");
@@ -592,9 +597,15 @@ public class Casscadia implements ActionListener {
         currentHabitat = null;
         currentRotation=0;
         Point maxwild=wildlifePlacementStrategy(Players.get(PlayerTurn),currentAnimal);
-        System.out.println("Placing: "+currentAnimal.AnimalName+" at X:"+maxwild.x+" Y:"+maxwild.y);
-        placeAnimal(Players.get(PlayerTurn),maxwild.x,maxwild.y);
-
+        if (maxwild==null){
+            System.out.println("couldnt Place "+currentAnimal.AnimalName);
+            this.currentAnimal=null;
+            plusPlayerTurn();
+        }
+        else {
+            System.out.println("Placing: " + currentAnimal.AnimalName + " at X:" + maxwild.x + " Y:" + maxwild.y);
+            placeAnimal(Players.get(PlayerTurn), maxwild.x, maxwild.y);
+        }
 
 
 
@@ -628,7 +639,6 @@ public class Casscadia implements ActionListener {
             }
         }
         Point temp=new Point(x,y,maxPoints);
-        System.out.println("placing "+temp.x+" "+temp.y);
         return temp;
     }
     public Point DisruptiveStrategy(Player targetPlayer) throws IOException {
@@ -661,12 +671,10 @@ public class Casscadia implements ActionListener {
         int x=0,y=0;
         boolean place=false;
         for (int i=0;i<currentPlayer.allTiles.size();i++){
-            if (place==false&&currentPlayer.allTiles.get(i).isAnimal==false) {
+            if (currentPlayer.allTiles.get(i).habitat.isPossible(currentAnimal)&&currentPlayer.allTiles.get(i).isAnimal==false){
                 x = currentPlayer.allTiles.get(i).X;
                 y = currentPlayer.allTiles.get(i).Y;
                 place=true;
-            }
-            if (currentPlayer.allTiles.get(i).habitat.isPossible(currentAnimal)){
                 currentPlayer.allTiles.get(i).addAnimal(currentAnimal);
 
                 if ( maxPoints<currentPlayer.getAnimalPoints()) {
@@ -677,7 +685,10 @@ public class Casscadia implements ActionListener {
                 currentPlayer.allTiles.get(i).removeAnimal();
             }
         }
-        Point temp=new Point(x,y,maxPoints);
+        if (place==false){
+            return null;
+
+        }        Point temp=new Point(x,y,maxPoints);
         return temp;
 
     }

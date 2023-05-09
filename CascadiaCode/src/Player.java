@@ -41,14 +41,21 @@ public class Player {
     }
 
     public void getPoints(){
-        System.out.println("Elk Points: "+ElkPointsA());
-        System.out.println("Hawk Points: "+HawkpointsA());
-        System.out.println("Fox Points: "+FoxPointsA());
-        System.out.println("Bear Points: "+BearpointsA());
+        int Epoints=ElkPointsA();
+        int hpoints=HawkpointsA();
+        int Fpoints=FoxPointsA();
+        int Bpoints=BearpointsA();
+        int Hpoints=HabitatPoints();
+        System.out.println("Elk Points: "+Epoints);
+        System.out.println("Hawk Points: "+hpoints);
+        System.out.println("Fox Points: "+Fpoints);
+        System.out.println("Bear Points: "+Bpoints);
         System.out.println("Salmon Points: ");
-        this.EndPoints=(ElkPointsA()+ HawkpointsA()+FoxPointsA()+BearpointsA());
-        System.out.println("Total Points= "+(ElkPointsA()+ HawkpointsA()+FoxPointsA()+BearpointsA()));
-        System.out.println(HabitatPoints());
+        System.out.println("Largest Habitat "+Hpoints+"\n");
+
+        this.EndPoints=(Epoints+hpoints+Fpoints+Bpoints+Hpoints);
+        System.out.println("Total Points= "+(EndPoints));
+
 
     }
     public int getAnimalPoints(){
@@ -597,7 +604,7 @@ return maxHabitat;
                     {
                         numDownLeft++;
                     }
-                    if (Board[l][i+1]==null||Board[l][i-1].isAnimal==false||Board[l][i+1].animal.AnimalName != animal.AnimalName)
+                    if (Board[l][i+1]==null||Board[l][i+1].isAnimal==false||Board[l][i+1].animal.AnimalName != animal.AnimalName)
                     {
                         break;
                     }
@@ -930,9 +937,7 @@ return maxHabitat;
 
                     } else if (Board[X][Y] == null) {
 
-                    } else if (X-1==-1) {
-
-                    } else if (X == originalX && Y == originalY) {
+                    } else if (X == originalX && Y == originalY && X-1>=0) {
                         if (Board[X - 1][Y] == null) {
 
                         } else if (checkIfHabitatsTouching(Board[originalX][originalY], Board[X - 1][Y], habitatToCheck, direction.values()[directionCounter]) && !surroundingtiles.containsKey((Integer.toString(X - 1) + Integer.toString(Y)))) {
@@ -952,6 +957,91 @@ return maxHabitat;
             }
         }
     }
+
+    public void getSalmonRuns(BoardTile tileToCheck) {
+
+        int X=tileToCheck.X;
+        int Y=tileToCheck.Y;
+        int directionCounter=0;
+        int numSurrounding=0;
+
+
+        int originalX = X;
+        int originalY = Y;
+        if (Board[X][Y]==null){
+            return;
+        }
+        if (originalY % 2 == 0) {
+            Y = Y - 1;
+            X = X - 1;
+
+            for (int i = 0; i < 3; i++) {
+                Y += i;
+                for (int l = 0; l < 2; l++) {
+                    X += l;
+                    if (X < 0 || X > 8 || Y < 0 || Y > 8) {}
+                    else if (Board[X][Y]==null){}
+                    else if (numSurrounding>2) {
+                        return;
+
+                    }
+                    else if (X == originalX && Y == originalY) {
+                        if (Board[X+1][Y]==null) {}
+                        else if(Board[X+1][Y].animal.Animaltype==Casscadia.Animalselect.Salmon&&!surroundingtiles.containsKey((Integer.toString(X+1)+Integer.toString(Y)))) {
+                            surroundingtiles.put((Integer.toString(X+1)+Integer.toString(Y)),findTile(X + 1, Y));
+                            numSurrounding++;
+                            getSalmonRuns(findTile(X+1,Y));
+
+                        }
+
+
+                    } else if (Board[X][Y].animal.Animaltype== Casscadia.Animalselect.Salmon&&!surroundingtiles.containsKey((Integer.toString(X)+Integer.toString(Y)))){
+
+                        surroundingtiles.put((Integer.toString(X)+Integer.toString(Y)),findTile(X,Y));
+                        numSurrounding++;
+                        getSalmonRuns(findTile(X,Y));
+                    }
+                    X=originalX-1;
+                    directionCounter++;
+                }
+                Y=originalY-1;
+
+            }
+
+        } else {
+            Y = Y - 1;
+            for (int i = 0; i < 3; i++) {
+                Y += i;
+                for (int l = 0; l < 2; l++) {
+                    X += l;
+                    if (X < 0 || X > 8 || Y < 0 || Y > 8) {
+
+                    } else if (numSurrounding>2) {
+                        return;
+
+                    } else if (Board[X][Y] == null) {
+
+                    } else if (X == originalX && Y == originalY && X-1>=0) {
+                        if (Board[X - 1][Y] == null) {
+
+                        } else if (Board[X-1][Y].animal.Animaltype==Casscadia.Animalselect.Salmon&&!surroundingtiles.containsKey((Integer.toString(X-1)+Integer.toString(Y)))) {
+                            surroundingtiles.put((Integer.toString(X - 1) + Integer.toString(Y)), findTile(X - 1, Y));
+                            numSurrounding++;
+                            getSalmonRuns(findTile(X - 1,Y));
+
+                        }
+                    } else if (Board[X][Y].animal.Animaltype== Casscadia.Animalselect.Salmon&&!surroundingtiles.containsKey((Integer.toString(X)+Integer.toString(Y)))) {
+                        surroundingtiles.put((Integer.toString(X) + Integer.toString(Y)), findTile(X, Y));
+                        numSurrounding++;
+                        getSalmonRuns(findTile(X, Y));
+                    }
+                    X = originalX;
+                    directionCounter++;
+                }
+            }
+        }
+    }
+
 
 
 
